@@ -20,11 +20,14 @@ public class Dados {
 	private Long id;
 	/*FIM - NÃO MEXER AQUI*/
 
-	@Column(name = "NOME", length = 50, nullable = false)
-	private String nome;
+	 @Column(name = "NOME", length = 50, nullable = false)
+	 private String nome;
 
-	//  @Column(name = "CPF", length = 11, nullable = false)
-    //  private String cpf;
+	 @Column(name = "NOTA1", length = 11, nullable = false)
+     private float nota1;
+
+	 @Column(name = "NOTA2", length = 11, nullable = false)
+     private float nota2;
 
 	
 }
