@@ -49,26 +49,62 @@
               </form>
             </div>
           </nav>
+          <div class="container mt-3">
           
-          <form action="">
-          <div class="form-group p-3">
-            <label for="exampleInputEmail1">Adicione suas equipes</label>
-            <!-- <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Equipes"> -->
-            <input type="nome" class="form-control" id="nome" placeholder="Informe o nome" name="nome">
-          </div>
-          <div >
-
-            <button type="button" class="btn btn-primary" onclick="cadastrarAluno();">Cadastrar</button>
+            <h2>Cadastrar Time</h2>
+            <form action="">
+              <div class="mb-3 mt-3">
+                <label for="nome">Nome:</label>
+                <input type="nome" class="form-control" id="nome" placeholder="Informe o nome" name="nome">
+              </div>
+              <!-- <div class="mb-3">
+                <label for="cpf">CPF:</label>
+                <input type="text" class="form-control" id="cpf" placeholder="Informe o CPF" name="cpf">
+              </div> -->
+              <button type="button" class="btn btn-primary" onclick="cadastrarAluno();">Cadastrar</button>
+            </form>
+       
             <div id="demo"></div>
-          </form>
-
+            <br>
           <h2>Equipes</h2>
         <button type="button" class="btn btn-primary" onclick="listarAluno();">Listar</button>
         <div id="tabela"></div>
+         <!-- The Modal -->
+      <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Modal Heading</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="">
+                    <input type="hidden" class="form-control" id="idaluno"  name="idaluno">
+                    <div class="mb-3 mt-3">
+                      <label for="nome">Email:</label>
+                      <input type="nome" class="form-control" id="nomeAlterar" placeholder="Informe o nome" name="nomeAlterar">
+                    </div>
+                    <!-- <div class="mb-3">
+                      <label for="cpf">CPF:</label>
+                      <input type="text" class="form-control" id="cpfAlterar" placeholder="Informe o CPF" name="cpfAlterar">
+                    </div> -->
+                    <button type="button" class="btn btn-primary" onclick="alterarAluno();">Alterar</button>
+                  </form>
+            </div>
+      
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+      
+          </div>
+        </div>
       </div>
-    
 
-      </div>
 
           <script>
             let listaAlunos;
@@ -83,8 +119,8 @@
                 xhttp.send(
                   JSON.stringify(
                     {
-                      nome:document.getElementById('nome').value, 
-                      cpf:document.getElementById('cpf').value
+                      nome:document.getElementById('nome').value
+                      // cpf:document.getElementById('cpf').value
                     }
                   )
                 );
@@ -96,7 +132,7 @@
                 }
                 xhttp.open("PUT", "http://127.0.0.1:8080/atualizar/"+document.getElementById('idaluno').value);
                 xhttp.setRequestHeader("Content-Type", "application/json");
-                xhttp.send(JSON.stringify({nome:document.getElementById('nomeAlterar').value, cpf:document.getElementById('cpfAlterar').value}));
+                xhttp.send(JSON.stringify({nome:document.getElementById('nomeAlterar').value}));
             }
             function mostrarTelaAlterarAluno(id){
                 
@@ -104,7 +140,7 @@
                 xhttp.onload = function() {
                     const obj = JSON.parse(this.responseText);
                     document.getElementById('nomeAlterar').value = obj.nome;
-                    document.getElementById('cpfAlterar').value = obj.cpf;
+                    // document.getElementById('cpfAlterar').value = obj.cpf;
                     document.getElementById('idaluno').value = obj.id;
                     var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
                         keyboard: false
@@ -136,7 +172,7 @@
                     tabela = tabela +'<thead>';
                     tabela = tabela +'<tr>';
                     tabela = tabela +'<th>Nome</th>';
-                    tabela = tabela +'<th>Cpf</th>';
+                    // tabela = tabela +'<th>Cpf</th>';
                     tabela = tabela +'<th>Ações</th>';
                     tabela = tabela +'</tr>';
                     tabela = tabela +'</thead>';
@@ -145,7 +181,7 @@
                         const element = obj[index];
                         tabela = tabela +'<tr>';
                         tabela = tabela +'<td>'+element.nome+'</td>';
-                        tabela = tabela +'<td>'+element.cpf+'</td>';
+                        // tabela = tabela +'<td>'+element.cpf+'</td>';
                         tabela = tabela +'<td><button type="button" class="btn btn-warning" onclick="mostrarTelaAlterarAluno('+element.id+');">Alterar</button>';
                         tabela = tabela +'<button type="button" class="btn btn-danger" onclick="removerAluno('+element.id+');">Remover</button></td>';
                         tabela = tabela +'</tr>';
