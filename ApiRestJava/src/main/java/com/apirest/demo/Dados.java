@@ -23,8 +23,8 @@ public class Dados {
 	@Column(name = "NOME", length = 50, nullable = false)
 	private String nome;
 
-	// @Column(name = "CPF", length = 11, nullable = false)
-	// private String cpf;
+	 @Column(name = "CPF", length = 11, nullable = false)
+     private String cpf;
 
 	
 }

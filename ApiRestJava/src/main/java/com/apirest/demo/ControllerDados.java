@@ -42,7 +42,7 @@ public class ControllerDados {
 	Dados atualizarAluno(@RequestBody Dados dadosNovo, @PathVariable Long id) {
 		return repository.findById(id).map(dados -> {
 			dados.setNome(dadosNovo.getNome());
-			// dados.setCpf(dadosNovo.getCpf());
+			dados.setCpf(dadosNovo.getCpf());
 			return repository.save(dados);
 		}).orElseGet(() -> {
 			dadosNovo.setId(id);
