@@ -61,6 +61,7 @@
                 <input type="number" class="form-control" id="nota1" placeholder="Informe a nota 1" name="nota1">
                 <label for="nota2">Nota 2:</label>
                 <input type="number" class="form-control" id="nota2" placeholder="Informe a nota 2" name="nota2">
+              
               </div>
               <!-- <div class="mb-3">
                 <label for="cpf">CPF:</label>
@@ -70,6 +71,7 @@
             </form>
        
             <div id="demo"></div>
+            <div id="status"></div>
             <br>
           <h2>Equipes</h2>
         <button type="button" class="btn btn-primary" onclick="listarAluno();">Listar</button>
@@ -120,9 +122,23 @@
            
             function cadastrarAluno(){
                 const xhttp = new XMLHttpRequest();
+                var nota1 = parseFloat(document.getElementById("nota1").value);
+                var nota2 = parseFloat(document.getElementById("nota2").value);
+                var media = (nota1 + nota2)/2 ;
+              
                 xhttp.onload = function() {
-                    document.getElementById("demo").innerHTML = "Dados cadastrado";
+                    //document.getElementById("demo").innerHTML = "Dados cadastrado";
+                    if(media >= 7){
+                      // document.getElementById("demo").innerHTML = "Aprovado";
+                      m = document.createElement("m");
+                      m.innerHTML = "Aprovado";
+                      document.getElementById("status").appendChild(m);
+                   }else{
+                      document.getElementById("demo").innerHTML = "Reprovado";
+                    }
+                   
                 }
+                
                 xhttp.open("POST", "http://127.0.0.1:8080/cadastrar");
                 xhttp.setRequestHeader("Content-Type", "application/json");
                 xhttp.send(
@@ -130,7 +146,8 @@
                     {
                       nome:document.getElementById('nome').value,
                       nota1:document.getElementById('nota1').value,
-                      nota2:document.getElementById('nota2').value
+                      nota2:document.getElementById('nota2').value,
+                      status:document.getElementById('status').value
 
                     }
                   )
@@ -143,7 +160,7 @@
                 }
                 xhttp.open("PUT", "http://127.0.0.1:8080/atualizar/"+document.getElementById('idaluno').value);
                 xhttp.setRequestHeader("Content-Type", "application/json");
-                xhttp.send(JSON.stringify({nome:document.getElementById('nomeAlterar').value, nota1:document.getElementById('nota1Alterar').value, nota2:document.getElementById('nota2Alterar').value }));
+                xhttp.send(JSON.stringify({nome:document.getElementById('nomeAlterar').value, nota1:document.getElementById('nota1Alterar').value, nota2:document.getElementById('nota2Alterar').value, status:document.getElementById('status') }));
             }
             function mostrarTelaAlterarAluno(id){
                 
@@ -153,6 +170,7 @@
                     document.getElementById('nomeAlterar').value = obj.nome;
                     document.getElementById('nota1Alterar').value = obj.nota1;
                     document.getElementById('nota2Alterar').value = obj.nota2;
+                    
                     // document.getElementById('cpfAlterar').value = obj.cpf;
                     document.getElementById('idaluno').value = obj.id;
                     var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
@@ -179,7 +197,7 @@
                 xhttp.onload = function() {
                     const obj = JSON.parse(this.responseText);
                     listaAlunos = obj;
-                    
+                 
                     var tabela = '';
                     tabela = tabela +'<table class="table">';
                     tabela = tabela +'<thead>';
@@ -187,6 +205,7 @@
                     tabela = tabela +'<th>Nome</th>';
                     tabela = tabela +'<th>Nota 1</th>';
                     tabela = tabela +'<th>Nota 2</th>';
+                    tabela = tabela +'<th>Situação</th>';
                     tabela = tabela +'<th>Ações</th>';
                     tabela = tabela +'</tr>';
                     tabela = tabela +'</thead>';
@@ -197,6 +216,7 @@
                         tabela = tabela +'<td>'+element.nome+'</td>';
                         tabela = tabela +'<td>'+element.nota1+'</td>';
                         tabela = tabela +'<td>'+element.nota2+'</td>';
+                        tabela = tabela +'<td>'+element.status+'</td>';
                         tabela = tabela +'<td><button type="button" class="btn btn-warning" onclick="mostrarTelaAlterarAluno('+element.id+');">Alterar</button>';
                         tabela = tabela +'<button type="button" class="btn btn-danger" onclick="removerAluno('+element.id+');">Remover</button></td>';
                         tabela = tabela +'</tr>';
@@ -209,10 +229,8 @@
                 xhttp.open("GET", "http://127.0.0.1:8080/listar");
                 xhttp.setRequestHeader("Content-Type", "application/json");
                 xhttp.send();
-            }
-            
-           
-    
+            }  
+
         </script>
     
     <!-- bootstrap  -->   

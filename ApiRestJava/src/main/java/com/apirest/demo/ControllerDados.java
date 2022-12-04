@@ -44,6 +44,7 @@ public class ControllerDados {
 			dados.setNome(dadosNovo.getNome());
 			dados.setNota1(dadosNovo.getNota1());
 			dados.setNota2(dadosNovo.getNota2());
+			dados.setStatus(dadosNovo.getStatus());
 			// dados.setCpf(dadosNovo.getCpf());
 			return repository.save(dados);
 		}).orElseGet(() -> {

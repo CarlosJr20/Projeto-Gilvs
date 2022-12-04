@@ -29,5 +29,8 @@ public class Dados {
 	 @Column(name = "NOTA2", length = 11, nullable = false)
      private float nota2;
 
+	 @Column(name = "STATUS", length = 11, nullable = false)
+     private String status;
+
 	
 }
