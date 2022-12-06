@@ -58,20 +58,25 @@
                 <label for="nome">Nome:</label>
                 <input type="nome" class="form-control" id="nome" placeholder="Informe o nome" name="nome">
                 <label for="nota1">Nota 1:</label>
-                <input type="number" class="form-control" id="nota1" placeholder="Informe a nota 1" name="nota1">
+                <input type="number" class="form-control" style="width: 10%;" id="nota1" placeholder="nota 1" name="nota1">
                 <label for="nota2">Nota 2:</label>
-                <input type="number" class="form-control" id="nota2" placeholder="Informe a nota 2" name="nota2">
-              
+                <input type="number" class="form-control" style="width: 10%;" id="nota2" placeholder="nota 2" name="nota2">
+  
+                <!-- <input type="hidden" class="form-control" id="status" placeholder="Informe a nota 2" > -->
+                <label for="status">Situação:</label>
+                <input id="status" class="form-control"style="width: 10%;" type="nome" name="status" readonly>
+                
               </div>
               <!-- <div class="mb-3">
                 <label for="cpf">CPF:</label>
                 <input type="text" class="form-control" id="cpf" placeholder="Informe o CPF" name="cpf">
               </div> -->
-              <button type="button" class="btn btn-primary" onclick="cadastrarAluno();">Cadastrar</button>
+              <button type="button" class="btn btn-primary" onclick="calcMedia();">Calcular Média</button>
+              <button type="button" class="btn btn-primary" id="cadastrar"onclick="cadastrarAluno();">Cadastrar</button>
             </form>
        
             <div id="demo"></div>
-            <div id="status"></div>
+            <!-- <div id="status"></div> -->
             <br>
           <h2>Equipes</h2>
         <button type="button" class="btn btn-primary" onclick="listarAluno();">Listar</button>
@@ -103,6 +108,11 @@
                       <label for="nota2">Nota 2</label>
                       <input type="number" class="form-control" id="nota2Alterar" placeholder="Informe a Nota 2" name="nota2Alterar">
                     </div>
+                    <div class="mb-3">
+                      <label for="status">Situação</label>
+                      <input type="nome" class="form-control" id="statusAlterar" placeholder="Mudar A Situação" name="statusAlterar">
+                    </div>
+                   
                     <button type="button" class="btn btn-primary" onclick="alterarAluno();">Alterar</button>
                   </form>
             </div>
@@ -119,23 +129,36 @@
 
           <script>
             let listaAlunos;
-           
-            function cadastrarAluno(){
-                const xhttp = new XMLHttpRequest();
-                var nota1 = parseFloat(document.getElementById("nota1").value);
+            document.getElementById("cadastrar").disabled = true;
+
+            function calcMedia(){
+               var nota1 = parseFloat(document.getElementById("nota1").value);
                 var nota2 = parseFloat(document.getElementById("nota2").value);
                 var media = (nota1 + nota2)/2 ;
+                if(media >= 7){
+                      // document.getElementById("demo").innerHTML = "Aprovado";
+                      //m = document.createElement("m");
+                      // m.innerHTML = "Aprovado";
+                      //document.getElementById("demo").appendChild(m);
+                      document.getElementById('status').value = "Aprovado";
+                      document.getElementById("cadastrar").disabled = false;
+                   }else{
+                      // r = document.createElement("r");
+                      // r.innerHTML = "Reprovado";
+                      // document.getElementById("demo").appendChild(r);
+                      document.getElementById('status').value = "Reprovado";
+                      document.getElementById("cadastrar").disabled = false;
+                  
+                    }
+            }
+
+            function cadastrarAluno(){
+                const xhttp = new XMLHttpRequest();
+                
               
                 xhttp.onload = function() {
-                    //document.getElementById("demo").innerHTML = "Dados cadastrado";
-                    if(media >= 7){
-                      // document.getElementById("demo").innerHTML = "Aprovado";
-                      m = document.createElement("m");
-                      m.innerHTML = "Aprovado";
-                      document.getElementById("status").appendChild(m);
-                   }else{
-                      document.getElementById("demo").innerHTML = "Reprovado";
-                    }
+                    document.getElementById("demo").innerHTML = "Dados cadastrado";
+                  
                    
                 }
                 
@@ -160,7 +183,7 @@
                 }
                 xhttp.open("PUT", "http://127.0.0.1:8080/atualizar/"+document.getElementById('idaluno').value);
                 xhttp.setRequestHeader("Content-Type", "application/json");
-                xhttp.send(JSON.stringify({nome:document.getElementById('nomeAlterar').value, nota1:document.getElementById('nota1Alterar').value, nota2:document.getElementById('nota2Alterar').value, status:document.getElementById('status') }));
+                xhttp.send(JSON.stringify({nome:document.getElementById('nomeAlterar').value, nota1:document.getElementById('nota1Alterar').value, nota2:document.getElementById('nota2Alterar').value, status:document.getElementById('statusAlterar') }));
             }
             function mostrarTelaAlterarAluno(id){
                 
@@ -170,8 +193,7 @@
                     document.getElementById('nomeAlterar').value = obj.nome;
                     document.getElementById('nota1Alterar').value = obj.nota1;
                     document.getElementById('nota2Alterar').value = obj.nota2;
-                    
-                    // document.getElementById('cpfAlterar').value = obj.cpf;
+                    document.getElementById('statusAlterar').value = obj.stauts;
                     document.getElementById('idaluno').value = obj.id;
                     var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
                         keyboard: false
@@ -194,9 +216,13 @@
             }
             function listarAluno(){
                 const xhttp = new XMLHttpRequest();
+                var nota1 = parseFloat(document.getElementById("nota1").value);
+                var nota2 = parseFloat(document.getElementById("nota2").value);
+                var media = (nota1 + nota2)/2 ;
                 xhttp.onload = function() {
                     const obj = JSON.parse(this.responseText);
                     listaAlunos = obj;
+                
                  
                     var tabela = '';
                     tabela = tabela +'<table class="table">';
