@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Torneios</title>
+</head>
+<body>
+        <!-- Menu superior -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">CHAMPIONS</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="Melo Index.html">Início <span class="sr-only">(página atual)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="Torneios.html">Torneios</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Logar-se
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="Login.html">Login</a>
+                    <a class="dropdown-item" href="Cadastro.html">Cadastro</a>
+                    <!-- <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Algo mais aqui</a> -->
+                  </div> 
+                </li>
+                <!--
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#">Desativado</a>
+                </li>
+                -->
+              </ul>
+              
+              <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
+                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Pesquisar</button>
+              </form>
+            </div>
+          </nav>
+          <div class="container mt-3">
+          
+            <h2>Cadastrar Média de Aluno</h2>
+            <form action="">
+              <div class="mb-3 mt-3">
+                
+                <label for="nome">Nome:</label>
+                <input type="nome" class="form-control" id="nome" placeholder="Informe o nome" name="nome">
+                <label for="disciplina">Disciplina:</label>
+                <input type="nome" class="form-control" id="disciplina" placeholder="Informe a Disciplina" name="disciplina">
+                <label for="nota1">Nota 1:</label>
+                <input type="number" class="form-control" style="width: 10%;" id="nota1" placeholder="nota 1" name="nota1">
+                <label for="nota2">Nota 2:</label>
+                <input type="number" class="form-control" style="width: 10%;" id="nota2" placeholder="nota 2" name="nota2">
+                <!-- <input type="hidden" class="form-control" id="status" placeholder="Informe a nota 2" > -->
+                <label for="status">Situação:</label>
+                <input id="status" class="form-control"style="width: 10%;" type="nome" name="status" readonly>
+                
+              </div>
+              <!-- <div class="mb-3">
+                <label for="cpf">CPF:</label>
+                <input type="text" class="form-control" id="cpf" placeholder="Informe o CPF" name="cpf">
+              </div> -->
+              <button type="button" class="btn btn-primary" onclick="calcMedia();">Calcular Média</button>
+              <button type="button" class="btn btn-primary" id="cadastrar"onclick="cadastrarAluno();">Cadastrar</button>
+            </form>
+       
+            <div id="resposta" style="padding-top: 12px;font-size: 20px;color: green;"></div>
+            <!-- <div id="status"></div> -->
+            <br>
+          <h2>Equipes</h2>
+        <button type="button" class="btn btn-primary" onclick="listarAluno();">Listar</button>
+        <div id="tabela"></div>
+         <!-- The Modal -->
+      <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Modal Heading</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="">
+                    <input type="hidden" class="form-control" id="idaluno"  name="idaluno">
+                    <div class="mb-3 mt-3">
+                      <label for="nome">Nome:</label>
+                      <input type="nome" class="form-control" id="nomeAlterar" placeholder="Informe o nome" name="nomeAlterar">
+                    </div>
+                    <div class="mb-3 mt-3">
+                      <label for="nome">Disciplina:</label>
+                      <input type="nome" class="form-control" id="disciplinaAlterar" placeholder="Informe a Disciplina" name="disciplinaAlterar">
+                    </div>
+                    <div class="mb-3">
+                      <label for="nota1">Nota 1</label>
+                      <input type="number" class="form-control" id="nota1Alterar" placeholder="Informe a Nota 1" name="nota1Alterar">
+                    </div>
+                    <div class="mb-3">
+                      <label for="nota2">Nota 2</label>
+                      <input type="number" class="form-control" id="nota2Alterar" placeholder="Informe a Nota 2" name="nota2Alterar">
+                    </div>
+                    <div class="mb-3">
+                      <label for="status">Situação</label>
+                      <input type="nome" class="form-control" id="statusAlterar" placeholder="Mudar A Situação" name="statusAlterar">
+                    </div>
+                   
+                    <button type="button" class="btn btn-primary" onclick="alterarAluno();">Alterar</button>
+                  </form>
+            </div>
+      
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+      
+          </div>
+        </div>
+      </div>
+
+
+          <script>
+            let listaAlunos;
+            document.getElementById("cadastrar").disabled = true;
+
+            function calcMedia(){
+                var nota1 = parseFloat(document.getElementById("nota1").value);
+                var nota2 = parseFloat(document.getElementById("nota2").value);
+                var media = (nota1 + nota2)/2 ;
+                if(media >= 7){ 
+                      document.getElementById('status').value = "Aprovado";
+                      document.getElementById("cadastrar").disabled = false;
+                   }else if (media == 0 || media < 7){
+                      document.getElementById('status').value = "Reprovado";
+                      document.getElementById("cadastrar").disabled = false;
+                  
+                    }
+            }
+
+            function cadastrarAluno(){
+                const xhttp = new XMLHttpRequest();
+                document.getElementById("cadastrar").disabled = true;
+              
+                xhttp.onload = function() {
+                    document.getElementById("resposta").innerHTML = "Dados cadastrado";
+                }
+                
+                xhttp.open("POST", "http://127.0.0.1:8080/cadastrar");
+                xhttp.setRequestHeader("Content-Type", "application/json");
+                xhttp.send(
+                  JSON.stringify(
+                    {
+                      nome:document.getElementById('nome').value,
+                      disciplina:document.getElementById('disciplina').value,
+                      nota1:document.getElementById('nota1').value,
+                      nota2:document.getElementById('nota2').value,
+                      status:document.getElementById('status').value
+
+                    }
+                  )
+                );
+            }
+            function alterarAluno(){
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function() {
+                    document.getElementById("resposta").innerHTML = "Dados alterado";
+                }
+                xhttp.open("PUT", "http://127.0.0.1:8080/atualizar" + document.getElementById('idaluno').value);
+                xhttp.setRequestHeader("Content-Type", "application/json");
+                xhttp.send(JSON.stringify({
+                  nome:document.getElementById('nomeAlterar').value, 
+                  disciplina:document.getElementById('disciplinaAlterar').value, 
+                  nota1:document.getElementById('nota1Alterar').value, 
+                  nota2:document.getElementById('nota2Alterar').value, 
+                  status:document.getElementById('statusAlterar').value 
+                 }
+                )
+              );
+            }
+            function mostrarTelaAlterarAluno(id){
+                
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function() {
+                    const obj = JSON.parse(this.responseText);
+                    document.getElementById('nomeAlterar').value = obj.nome;
+                    document.getElementById('disciplinaAlterar').value = obj.disciplina;
+                    document.getElementById('nota1Alterar').value = obj.nota1;
+                    document.getElementById('nota2Alterar').value = obj.nota2;
+                    document.getElementById('statusAlterar').value = obj.status;
+                    document.getElementById('idaluno').value = obj.id;
+                    var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
+                        keyboard: false
+                    });
+                    myModal.show()
+                }
+                xhttp.open("GET", "http://127.0.0.1:8080/get/"+id);
+                xhttp.setRequestHeader("Content-Type", "application/json");
+                xhttp.send();
+            }
+            function removerAluno(id){
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function() {
+                    document.getElementById("resposta").innerHTML = "Dados removido";
+                    listarAluno();
+                }
+                xhttp.open("DELETE", "http://127.0.0.1:8080/remover/"+id);
+                xhttp.setRequestHeader("Content-Type", "application/json");
+                xhttp.send();
+            }
+            function listarAluno(){
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function() {
+                    const obj = JSON.parse(this.responseText);
+                    listaAlunos = obj;
+
+                    var tabela = '';
+                    tabela = tabela +'<table class="table">';
+                    tabela = tabela +'<thead>';
+                    tabela = tabela +'<tr>';
+                    tabela = tabela +'<th>Nome</th>';
+                    tabela = tabela +'<th>Disciplina</th>';
+                    tabela = tabela +'<th>Nota 1</th>';
+                    tabela = tabela +'<th>Nota 2</th>';
+                    tabela = tabela +'<th>Situação</th>';
+                    tabela = tabela +'<th>Ações</th>';
+                    tabela = tabela +'</tr>';
+                    tabela = tabela +'</thead>';
+                    tabela = tabela +'<tbody>';
+                    for (let index = 0; index < obj.length; index++) {
+                        const element = obj[index];
+                        tabela = tabela +'<tr>';
+                        tabela = tabela +'<td>'+element.nome+'</td>';
+                        tabela = tabela +'<td>'+element.disciplina+'</td>';
+                        tabela = tabela +'<td>'+element.nota1+'</td>';
+                        tabela = tabela +'<td>'+element.nota2+'</td>';
+                        tabela = tabela +'<td>'+element.status+'</td>';
+                        tabela = tabela +'<td><button type="button" class="btn btn-warning" onclick="mostrarTelaAlterarAluno('+element.id+');">Alterar</button>';
+                        tabela = tabela +'<button type="button" class="btn btn-danger" onclick="removerAluno('+element.id+');">Remover</button></td>';
+                        tabela = tabela +'</tr>';
+                    }
+                    
+                    tabela = tabela +'</tbody>';
+                    tabela = tabela +'</table>';
+                    document.getElementById("tabela").innerHTML = tabela;
+                }
+                xhttp.open("GET", "http://127.0.0.1:8080/listar");
+                xhttp.setRequestHeader("Content-Type", "application/json");
+                xhttp.send();
+            }  
+
+        </script>
+    
+    <!-- bootstrap  -->   
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>

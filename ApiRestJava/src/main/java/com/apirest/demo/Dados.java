@@ -23,6 +23,10 @@ public class Dados {
 	 @Column(name = "NOME", length = 50, nullable = false)
 	 private String nome;
 
+	 @Column(name = "DISCIPLINA", length = 50, nullable = false)
+	 private String disciplina;
+
+
 	 @Column(name = "NOTA1", length = 11, nullable = false)
      private float nota1;
 

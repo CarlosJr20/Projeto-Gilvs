@@ -42,6 +42,7 @@ public class ControllerDados {
 	Dados atualizarAluno(@RequestBody Dados dadosNovo, @PathVariable Long id) {
 		return repository.findById(id).map(dados -> {
 			dados.setNome(dadosNovo.getNome());
+			dados.setDisciplina(dadosNovo.getDisciplina());
 			dados.setNota1(dadosNovo.getNota1());
 			dados.setNota2(dadosNovo.getNota2());
 			dados.setStatus(dadosNovo.getStatus());
